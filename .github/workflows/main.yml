@@ -14,4 +14,6 @@ jobs:
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "voteup-web"
-          heroku_email: "kunaldeshpande9896@gmail.com"
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          buildpack: "https://github.com/heroku/heroku-buildpack-nodejs.git"
+          region: "eu"
