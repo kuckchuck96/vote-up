@@ -1,0 +1,14 @@
+name: Deploy to Heroku
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: AkhileshNS/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "voteup-web"
+          heroku_email: "kunaldeshpande9896@gmail.com"
