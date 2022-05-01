@@ -1,0 +1,16 @@
+<div class="modal fade" id="passcodeModal" tabindex="-1" aria-labelledby="passcodeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="passcodeModalLabel">Enter Passcode</h5>
+                <button type="button" class="btn-close" id="closeModal" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" name="passcode" id="passcodeText" maxlength="6" #passcode>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="submitPasscode(passcode.value)">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

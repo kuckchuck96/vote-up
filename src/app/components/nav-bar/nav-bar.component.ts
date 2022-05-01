@@ -14,7 +14,7 @@ export class NavBarComponent implements OnInit {
   }
 
   redirectToGitHub(): void {
-    window.location.href = 'https://github.com/';
+    window.location.href = 'https://github.com/kuckchuck96/vote-up';
   }
 
 }

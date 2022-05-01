@@ -4,5 +4,6 @@ export interface Vote {
     description?: string;
     createDate?: string;
     active?: boolean;
-    winner?: string
+    winner?: string;
+    passcode: string;
 }
