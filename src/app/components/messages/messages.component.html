@@ -1,0 +1,9 @@
+<div class="container mt-3 w-50" *ngIf="messageService.getMessages().length">
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <ul>
+        <li *ngFor="let msg of messageService.getMessages()">{{ msg }}</li>
+    </ul>
+    <!-- data-bs-dismiss="alert" -->
+    <button type="button" class="btn-close" aria-label="Close" (click)="clear()"></button>
+  </div>
+</div>

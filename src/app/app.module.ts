@@ -8,6 +8,8 @@ import { CreateVoteComponent } from './components/create-vote/create-vote.compon
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ViewVoteComponent } from './components/view-vote/view-vote.component';
 import { RouterModule, Routes } from '@angular/router';
+import { MessagesComponent } from './components/messages/messages.component';
+import { PasscodeModalComponent } from './components/passcode-modal/passcode-modal.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'create', pathMatch: 'full' },
@@ -20,7 +22,9 @@ const appRoutes: Routes = [
     AppComponent,
     CreateVoteComponent,
     NavBarComponent,
-    ViewVoteComponent
+    ViewVoteComponent,
+    MessagesComponent,
+    PasscodeModalComponent
   ],
   imports: [
     BrowserModule,
