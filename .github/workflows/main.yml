@@ -17,5 +17,3 @@ jobs:
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           buildpack: "https://github.com/heroku/heroku-buildpack-nodejs.git"
           region: "eu"
-        env:
-          NODE_BUILD_FLAGS: "--configuration=production"
