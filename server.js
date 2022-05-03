@@ -1,12 +1,15 @@
-import { express } from 'express';
-import { path } from 'path';
+//Install express server
+const express = require("express");
+const path = require("path");
 
 const app = express();
 
-app.use(express.static(__dirname + "/dist/vote-up"));
+// Serve only the static files form the dist directory
+app.use(express.static("./dist/vote-up"));
 
-app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname + "/dist/vote-up/index.html"));
-});
+app.get("/*", (req, res) =>
+  res.sendFile("index.html", { root: "dist/vote-up/" })
+);
 
-app.listen(process.env.PORT || 3000);
+// Start the app by listening on the default Heroku port
+app.listen(process.env.PORT || 8080);
