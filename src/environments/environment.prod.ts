@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: ''
+  apiBaseUrl: 'https://voteup-service.herokuapp.com/api'
 };
