@@ -17,9 +17,7 @@ export class VoteService {
   private baseUrl!: string;
 
   constructor(private http: HttpClient) {
-    if (!environment.production) {
-      this.baseUrl = environment.apiBaseUrl;
-    }
+    this.baseUrl = environment.apiBaseUrl;
   }
 
   createVote(voteData: VoteData): Observable<VoteData> {
@@ -35,7 +33,10 @@ export class VoteService {
   }
 
   closeVote(id: string, passcode: string): Observable<Vote> {
-    return this.http.post<Vote>(`${this.baseUrl}/close/${id}?passcode=${passcode}`, httpOptions);
+    return this.http.post<Vote>(
+      `${this.baseUrl}/close/${id}?passcode=${passcode}`,
+      httpOptions
+    );
   }
 
   updateOption(id: string): Observable<VoteOption> {
