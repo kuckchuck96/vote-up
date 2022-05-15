@@ -1,9 +1,11 @@
+import { VoteOption } from './voteOption';
+
 export interface Vote {
-    id?: string;
-    title: string;
-    description?: string;
-    createDate?: string;
-    active?: boolean;
-    winner?: string;
-    passcode: string;
+  id: number;
+  title: string;
+  description: string;
+  createDate: string;
+  active: boolean;
+  passcode: string;
+  options: VoteOption[];
 }

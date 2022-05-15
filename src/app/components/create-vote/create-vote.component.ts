@@ -27,25 +27,22 @@ export class CreateVoteComponent implements OnInit {
 
   createVote(): void {
     if (this.validateFields()) {
-      this.voteService
-        .createVote({
-          vote: this.vote,
-          voteOptions: this.voteOptions,
-        })
-        .subscribe((value) => {
+      this.vote.options = this.voteOptions;
+      this.voteService.createVote(this.vote).subscribe({
+        next: (v) => {
           // Clear from data
           this.clearForm();
           // Redirect
-          this.router.navigateByUrl(`view/${value.vote.id}`);
-        });
+          this.router.navigateByUrl(`view/${v.id}`);
+        },
+        error: (e) => this.msgService.add(e.message),
+      });
     }
   }
 
   addOption(): void {
     if (this.voteOption.label && this.voteOptions.length < 5) {
-      this.voteOption.count = 0;
       this.voteOptions.push(this.voteOption);
-
       this.voteOption = {} as VoteOption;
     }
   }
@@ -75,7 +72,7 @@ export class CreateVoteComponent implements OnInit {
     if (!this.vote.passcode || !re.exec(this.vote.passcode)) {
       this.msgService.add('Enter a valid passcode.');
       isOk &&= false;
-    }    
+    }
 
     return isOk;
   }
