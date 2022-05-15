@@ -30,6 +30,7 @@ export class ViewVoteComponent implements OnInit {
     this.voteService.getVoteData(this.voteId).subscribe({
       next: (v) => (this.vote = v),
       error: (e) => this.msgService.add(e.message),
+      complete: () => this.calculateTotalVotes()
     });
   }
 
