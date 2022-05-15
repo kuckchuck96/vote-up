@@ -1,10 +1,6 @@
-import {
-  Component,
-  OnInit,
-  Renderer2,
-} from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { VoteData } from 'src/app/models/voteData';
+import { Vote } from 'src/app/models/vote';
 import { VoteOption } from 'src/app/models/voteOption';
 import { MessageService } from 'src/app/services/message.service';
 import { VoteService } from 'src/app/services/vote.service';
@@ -15,8 +11,8 @@ import { VoteService } from 'src/app/services/vote.service';
   styleUrls: ['./view-vote.component.css'],
 })
 export class ViewVoteComponent implements OnInit {
-  voteData: VoteData = {} as VoteData;
-  voteId?: string;
+  vote!: Vote;
+  voteId!: number;
   winnerOption: string | undefined;
   total: number = 0;
   disableOptions: boolean = false;
@@ -29,26 +25,28 @@ export class ViewVoteComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.voteId = String(this.route.snapshot.paramMap.get('id'));
+    this.voteId = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.voteService.getVoteData(this.voteId).subscribe((value) => {
-      this.voteData = value;
-      this.calculateTotalVotes();
+    this.voteService.getVoteData(this.voteId).subscribe({
+      next: (v) => (this.vote = v),
+      error: (e) => this.msgService.add(e.message),
+      complete: () => this.calculateTotalVotes()
     });
   }
 
-  updateOption(voteOption: VoteOption, e: Event): void {
-    this.voteService.updateOption(String(voteOption.id)).subscribe((value) => {
-      this.voteData.voteOptions.map((op) => {
-        if (op.id === value.id) {
-          op.count = value.count;
-          this.renderer.addClass(e.target, 'active');
-          this.disableOptions = true;
-        }
-      });
-
-      // Calculate total votes.
-      this.calculateTotalVotes();
+  updateOption(option: VoteOption, e: Event): void {
+    this.voteService.updateOption(option.id).subscribe({
+      next: (v) => {
+        this.vote?.options.map((op) => {
+          if (op.id === v.id) {
+            op.count = v.count;
+            this.renderer.addClass(e.target, 'active');
+            this.disableOptions = true;
+          }
+        });
+      },
+      error: (e) => this.msgService.add(e.message),
+      complete: () => this.calculateTotalVotes(),
     });
   }
 
@@ -61,9 +59,9 @@ export class ViewVoteComponent implements OnInit {
 
     if (passcode) {
       if ((checkbox as HTMLInputElement).checked) {
-        this.voteService.closeVote(String(this.voteId), passcode).subscribe({
+        this.voteService.closeVote(this.vote.id, passcode).subscribe({
           next: (v) => {
-            this.voteData.vote = v;
+            this.vote = v;
             // Calculate total votes
             this.calculateTotalVotes();
             // Clear errors
@@ -94,7 +92,7 @@ export class ViewVoteComponent implements OnInit {
 
   calculateTotalVotes(): void {
     this.total = 0;
-    this.voteData.voteOptions.map((op) => (this.total += op.count));
+    this.vote?.options.map((op) => (this.total += op.count));
   }
 
   calculatePercentageVotes(count: number, total: number): string {

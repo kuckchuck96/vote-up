@@ -7,7 +7,7 @@ import { VoteService } from 'src/app/services/vote.service';
   styleUrls: ['./passcode-modal.component.css'],
 })
 export class PasscodeModalComponent implements OnInit {
-  @Input() id?: string;
+  @Input() id!: number;
   @Output() passcodeEvent = new EventEmitter<string>();
 
   constructor() {}
