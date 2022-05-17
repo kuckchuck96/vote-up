@@ -22,6 +22,8 @@
         <div class="mb-3">
             <label for="formControlPasscode" class="form-label">Passcode</label>
             <input type="text" class="form-control" maxlength="6" id="passcode" [(ngModel)]="vote.passcode">
+            <p><small><span class="small-note">*</span> Please keep the <u>passcode</u> handy as we can't provide it in case you
+                    don't remember.</small></p>
         </div>
         <button type="button" class="btn btn-primary" (click)="createVote()">Create</button>
         <button type="button" class="btn btn-secondary mx-3" (click)="clearForm()">Clear</button>
