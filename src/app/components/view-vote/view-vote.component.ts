@@ -1,5 +1,5 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Vote } from 'src/app/models/vote';
 import { VoteOption } from 'src/app/models/voteOption';
 import { MessageService } from 'src/app/services/message.service';
@@ -30,7 +30,7 @@ export class ViewVoteComponent implements OnInit {
     this.voteService.getVoteData(this.voteId).subscribe({
       next: (v) => (this.vote = v),
       error: (e) => this.msgService.add(e.message),
-      complete: () => this.calculateTotalVotes()
+      complete: () => this.calculateTotalVotes(),
     });
   }
 
@@ -101,5 +101,12 @@ export class ViewVoteComponent implements OnInit {
 
   getPasscode(value: string): void {
     this.onClose(value);
+  }
+
+  copyUrl(): void {
+    navigator.clipboard
+      .writeText(window.location.href)
+      .then((value) => alert('Link copied to the clipboard!'))
+      .catch((err) => console.error(err.message));
   }
 }

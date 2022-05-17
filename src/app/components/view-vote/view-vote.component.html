@@ -1,7 +1,13 @@
 <div class="container w-50 mt-5" *ngIf="vote">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">{{ vote.title }}</h5>
+            <h5 class="card-title row">
+                <div class="col-10">{{ vote.title }}</div>
+                <div class="col">
+                    <button type="button" class="btn btn-outline-secondary"
+                    (click)="copyUrl()"><i class="bi bi-files"></i> Copy</button>
+                </div>
+            </h5>
             <p class="card-text mb-3" *ngIf="vote.description">{{ vote.description }}</p>
             <ul class="list-group mb-3" *ngIf="vote.options.length">
                 <button type="button" class="list-group-item list-group-item-action d-flex justify-content-between"
@@ -13,9 +19,9 @@
             </ul>
             <div class="form-check form-switch mb-3">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
-                    [checked]="!vote.active" [disabled]="!vote.active" 
-                    data-bs-toggle="modal" data-bs-target="#passcodeModal">
-                    <!-- (change)="onClose($event)" -->
+                    [checked]="!vote.active" [disabled]="!vote.active" data-bs-toggle="modal"
+                    data-bs-target="#passcodeModal">
+                <!-- (change)="onClose($event)" -->
                 <label class="form-check-label" for="flexSwitchCheckChecked">Close Vote</label>
             </div>
             <p *ngIf="vote.active"><small><span class="small-note">*</span> Once done <b>close</b> the vote to
