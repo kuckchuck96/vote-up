@@ -1,4 +1,4 @@
-<div class="container w-50 mt-5" *ngIf="vote">
+<div class="container w-50 mt-5" *ngIf="vote else loading">
     <div class="card">
         <div class="card-body">
             <h5 class="card-title row">
@@ -30,3 +30,8 @@
     </div>
     <app-passcode-modal [id]="vote.id" (passcodeEvent)="getPasscode($event)"></app-passcode-modal>
 </div>
+
+<!-- Loading -->
+<ng-template #loading>
+    <app-app-loader *ngIf="msgService.getMessages().length === 0"></app-app-loader>
+</ng-template>

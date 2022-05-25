@@ -21,7 +21,7 @@ export class ViewVoteComponent implements OnInit {
     private route: ActivatedRoute,
     private voteService: VoteService,
     private renderer: Renderer2,
-    private msgService: MessageService
+    public msgService: MessageService
   ) {}
 
   ngOnInit(): void {
