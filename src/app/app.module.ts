@@ -10,11 +10,14 @@ import { ViewVoteComponent } from './components/view-vote/view-vote.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MessagesComponent } from './components/messages/messages.component';
 import { PasscodeModalComponent } from './components/passcode-modal/passcode-modal.component';
+import { AppLoaderComponent } from './components/app-loader/app-loader.component';
+import { AboutComponent } from './components/about/about.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'create', pathMatch: 'full' },
   { path: 'create', component: CreateVoteComponent },
-  { path: 'view/:id', component: ViewVoteComponent }
+  { path: 'view/:id', component: ViewVoteComponent },
+  { path: 'about', component: AboutComponent },
 ];
 
 @NgModule({
@@ -24,15 +27,17 @@ const appRoutes: Routes = [
     NavBarComponent,
     ViewVoteComponent,
     MessagesComponent,
-    PasscodeModalComponent
+    PasscodeModalComponent,
+    AppLoaderComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes, { enableTracing: false })
+    RouterModule.forRoot(appRoutes, { enableTracing: false }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
