@@ -9,9 +9,11 @@ import { environment } from 'src/environments/environment';
 export class AppComponent implements OnInit {
   title = 'vote-up';
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     if (environment.production) {
-      window.location.href = window.location.href.replace('http', 'https');
+      if (window.location.href.startsWith('http://')) {
+        window.location.href = window.location.href.replace('http', 'https');
+      }
     }
   }
 }
