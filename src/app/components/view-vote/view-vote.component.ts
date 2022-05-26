@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Vote } from 'src/app/models/vote';
 import { VoteOption } from 'src/app/models/voteOption';
 import { MessageService } from 'src/app/services/message.service';
@@ -21,7 +22,8 @@ export class ViewVoteComponent implements OnInit {
     private route: ActivatedRoute,
     private voteService: VoteService,
     private renderer: Renderer2,
-    public msgService: MessageService
+    // public msgService: MessageService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -29,7 +31,7 @@ export class ViewVoteComponent implements OnInit {
 
     this.voteService.getVoteData(this.voteId).subscribe({
       next: (v) => (this.vote = v),
-      error: (e) => this.msgService.add(e.message),
+      error: (e) => this.toastr.error(e.message),
       complete: () => this.calculateTotalVotes(),
     });
   }
@@ -45,7 +47,7 @@ export class ViewVoteComponent implements OnInit {
           }
         });
       },
-      error: (e) => this.msgService.add(e.message),
+      error: (e) => this.toastr.error(e.message),
       complete: () => this.calculateTotalVotes(),
     });
   }
@@ -55,7 +57,7 @@ export class ViewVoteComponent implements OnInit {
     const passcodeCloseModal = document.querySelector('#closeModal');
 
     // Clear existing errors
-    this.msgService.clear();
+    // this.msgService.clear();
 
     if (passcode) {
       if ((checkbox as HTMLInputElement).checked) {
@@ -65,10 +67,10 @@ export class ViewVoteComponent implements OnInit {
             // Calculate total votes
             this.calculateTotalVotes();
             // Clear errors
-            this.msgService.clear();
+            // this.msgService.clear();
           },
           error: (e) => {
-            this.msgService.add(e.message);
+            this.toastr.error(e.message);
             this.renderer.setProperty(checkbox, 'checked', false);
             (passcodeCloseModal as HTMLElement).click();
           },
@@ -106,7 +108,7 @@ export class ViewVoteComponent implements OnInit {
   copyUrl(): void {
     navigator.clipboard
       .writeText(window.location.href)
-      .then((value) => alert('Link copied to the clipboard!'))
+      .then((value) => this.toastr.success('Link copied to the clipboard!'))
       .catch((err) => console.error(err.message));
   }
 }

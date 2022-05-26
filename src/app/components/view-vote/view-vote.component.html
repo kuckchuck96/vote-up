@@ -33,5 +33,5 @@
 
 <!-- Loading -->
 <ng-template #loading>
-    <app-app-loader *ngIf="msgService.getMessages().length === 0"></app-app-loader>
+    <app-app-loader *ngIf="!vote"></app-app-loader>
 </ng-template>
