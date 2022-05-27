@@ -31,7 +31,7 @@ export class ViewVoteComponent implements OnInit {
 
     this.voteService.getVoteData(this.voteId).subscribe({
       next: (v) => (this.vote = v),
-      error: (e) => this.toastr.error(e.message),
+      error: (e) => this.toastr.error(e.error.message),
       complete: () => this.calculateTotalVotes(),
     });
   }
@@ -47,7 +47,7 @@ export class ViewVoteComponent implements OnInit {
           }
         });
       },
-      error: (e) => this.toastr.error(e.message),
+      error: (e) => this.toastr.error(e.error.message),
       complete: () => this.calculateTotalVotes(),
     });
   }
@@ -70,7 +70,7 @@ export class ViewVoteComponent implements OnInit {
             // this.msgService.clear();
           },
           error: (e) => {
-            this.toastr.error(e.message);
+            this.toastr.error(e.error.message);
             this.renderer.setProperty(checkbox, 'checked', false);
             (passcodeCloseModal as HTMLElement).click();
           },

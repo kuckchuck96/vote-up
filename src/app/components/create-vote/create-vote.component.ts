@@ -37,7 +37,7 @@ export class CreateVoteComponent implements OnInit {
           // Redirect
           this.router.navigateByUrl(`view/${v.id}`);
         },
-        error: (e) => this.toastr.error(e.message),
+        error: (e) => this.toastr.error(e.error.message),
       });
     }
   }
