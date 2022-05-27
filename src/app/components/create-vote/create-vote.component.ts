@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Vote } from 'src/app/models/vote';
 import { VoteOption } from 'src/app/models/voteOption';
 import { MessageService } from 'src/app/services/message.service';
@@ -20,7 +21,8 @@ export class CreateVoteComponent implements OnInit {
   constructor(
     private voteService: VoteService,
     private router: Router,
-    private msgService: MessageService
+    // private msgService: MessageService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {}
@@ -35,7 +37,7 @@ export class CreateVoteComponent implements OnInit {
           // Redirect
           this.router.navigateByUrl(`view/${v.id}`);
         },
-        error: (e) => this.msgService.add(e.message),
+        error: (e) => this.toastr.error(e.error.message),
       });
     }
   }
@@ -52,7 +54,7 @@ export class CreateVoteComponent implements OnInit {
     this.voteOption = {} as VoteOption;
     this.voteOptions = [] as Array<VoteOption>;
     // Clear error messages
-    this.msgService.clear();
+    // this.msgService.clear();
   }
 
   validateFields(): boolean {
@@ -60,17 +62,20 @@ export class CreateVoteComponent implements OnInit {
     const re = /\d{6}/;
 
     if (!this.vote.title) {
-      this.msgService.add('Title of the vote is missing.');
+      // this.msgService.add('Title of the vote is missing.');
+      this.toastr.error('Title of the vote is missing.');
       isOk &&= false;
     }
 
     if (this.voteOptions.length < 2) {
-      this.msgService.add('Vote requires options to choose from.');
+      // this.msgService.add('Vote requires options to choose from.');
+      this.toastr.error('Vote requires options to choose from.');
       isOk &&= false;
     }
 
     if (!this.vote.passcode || !re.exec(this.vote.passcode)) {
-      this.msgService.add('Enter a valid passcode.');
+      // this.msgService.add('Enter a valid passcode.');
+      this.toastr.error('Enter a valid passcode.');
       isOk &&= false;
     }
 

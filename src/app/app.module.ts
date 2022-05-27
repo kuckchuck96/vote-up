@@ -8,10 +8,11 @@ import { CreateVoteComponent } from './components/create-vote/create-vote.compon
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ViewVoteComponent } from './components/view-vote/view-vote.component';
 import { RouterModule, Routes } from '@angular/router';
-import { MessagesComponent } from './components/messages/messages.component';
 import { PasscodeModalComponent } from './components/passcode-modal/passcode-modal.component';
 import { AppLoaderComponent } from './components/app-loader/app-loader.component';
 import { AboutComponent } from './components/about/about.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'create', pathMatch: 'full' },
@@ -26,7 +27,6 @@ const appRoutes: Routes = [
     CreateVoteComponent,
     NavBarComponent,
     ViewVoteComponent,
-    MessagesComponent,
     PasscodeModalComponent,
     AppLoaderComponent,
     AboutComponent,
@@ -36,6 +36,8 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes, { enableTracing: false }),
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
